@@ -32,12 +32,12 @@ namespace dataflow_use_case_test {
 
 
     enum class UseCaseProblem {
-        In0_Out0 = 0,
-        In0In1_Out0,
-        In0In1_In2_Out0,
-        In0In1_In2In3_Out0,
-        In0In1_In2In3_Out0_Out1,
-        In0In1TD0_In2In3TTD1_Out0TD0_Out1TD0_Buffer,
+        In0_Out0 = 0, // pass input 0 directly to output 0
+        In0In1_Out0,  // when sync input 0 and 1 then  solve(0,1) and pass to output 0
+        In0In1_In2_Out0,  // when sync input 0,1 and 2 then r0 = solve(0,1) final = solve(r0,2) and pass to output 0
+        In0In1_In2In3_Out0, // when sync input 0,1,2 and 3 then r0 = solve(0,1) r1 = solve(2,3) final = solve(r0,r1) and pass to output 0
+        In0In1_In2In3_Out0_Out1, // when sync input 0,1 then r0 = solve(0,1) and pass to output 0; when sync input 2,3 and 0,1(or r0) then r1 = solve(2,3) final = solve(r0,r1) and pass to output 1
+        In0In1TD0_In2In3TTD1_Out0TD0_Out1TD0_Buffer, // first test with async sources. when sync input 2,3 then r1 = solve(2,3) ;when sync input 0,1 then r0 = solve(0,1) and pass to output 0, when a buffered r1 is available then final = solve(r0,r1) and pass to output 1
     };
     constexpr const char* UseCaseProblemToString(UseCaseProblem p)
     {

@@ -9,7 +9,6 @@ namespace dataflow_use_case_test {
 
     class DATAFLOW_USE_CASE_TEST_EXPORT DataflowNetwork {
     public:
-
         virtual ~DataflowNetwork() = default;
 
         virtual void Init(dataflow_use_case_test::UseCaseProblem problem, const dataflow_use_case_test::BaseProblemList &problem_list,
