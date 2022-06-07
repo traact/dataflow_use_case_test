@@ -91,7 +91,7 @@ bool DataflowTest::Test() {
                 total_valid_results++;
 
                 if (in_result == result_time_domain.end()) {
-                    spdlog::error("Expected valid result for time domain {0}, port {1}, ts {2}, no found",
+                    SPDLOG_ERROR("Expected valid result for time domain {0}, port {1}, ts {2}, no found",
                                   time_domain_idx,
                                   expected_port,
                                   expected_ts.time_since_epoch().count());
@@ -99,7 +99,7 @@ bool DataflowTest::Test() {
                     continue;
                 }
                 if (in_invalid != invalid_time_domain.end()) {
-                    spdlog::error(
+                    SPDLOG_ERROR(
                         "Expected valid result for time domain {0}, port {1}, ts {2}, but found in invalid results",
                         time_domain_idx,
                         expected_port,
@@ -110,7 +110,7 @@ bool DataflowTest::Test() {
 
                 auto port_result = in_result->second.find(expected_port);
                 if (port_result == in_result->second.end()) {
-                    spdlog::error(
+                    SPDLOG_ERROR(
                         "Expected valid result for time domain {0}, port {1}, ts {2}, but port not found in valid results",
                         time_domain_idx,
                         expected_port,
@@ -124,7 +124,7 @@ bool DataflowTest::Test() {
                     std::stringstream ss_expected, ss_result;
                     ss_expected << expected_value.matrix().format(CleanFmt);
                     ss_result << port_result->second.matrix().format(CleanFmt);
-                    spdlog::error(
+                    SPDLOG_ERROR(
                         "Expected valid result for time domain {0}, port {1}, ts {2}, values differ, expected:\n{3}\nresult:\n{4}",
                         time_domain_idx,
                         expected_port,
@@ -139,7 +139,7 @@ bool DataflowTest::Test() {
                 expected_invalid_count[time_domain_idx]++;
                 total_invalid_results++;
                 if (in_result != result_time_domain.end()) {
-                    spdlog::error(
+                    SPDLOG_ERROR(
                         "Expected invalid result for time domain {0}, port {1}, ts {2}, but found in valid results",
                         time_domain_idx,
                         expected_port,
@@ -148,13 +148,13 @@ bool DataflowTest::Test() {
                     continue;
                 }
                 if (in_invalid == invalid_time_domain.end()) {
-                    //spdlog::warn("Expected invalid result for time domain {0}, port {1}, ts {2}, but no found", time_domain_idx, expected_port, expected_ts.time_since_epoch().count());
+                    //SPDLOG_WARN("Expected invalid result for time domain {0}, port {1}, ts {2}, but no found", time_domain_idx, expected_port, expected_ts.time_since_epoch().count());
                     continue;
                 }
 
                 auto port_result = in_invalid->second.find(expected_port);
                 if (port_result == in_invalid->second.end()) {
-                    spdlog::error(
+                    SPDLOG_ERROR(
                         "Expected invalid result for time domain {0}, port {1}, ts {2}, but port not found in invalid results",
                         time_domain_idx,
                         expected_port,
@@ -203,7 +203,7 @@ bool DataflowTest::Test() {
 
         auto send_ts = data_source.DataTsToSendTs.find(event_ts);
         if (send_ts == data_source.DataTsToSendTs.end()) {
-            spdlog::warn("no sending event found for result event, test broken");
+            SPDLOG_WARN("no sending event found for result event, test broken");
             continue;
         }
         auto delay = receive_ts - send_ts->second;
@@ -236,7 +236,7 @@ bool DataflowTest::Test() {
 
     }
 
-    spdlog::info(ss.str());
+    SPDLOG_INFO(ss.str());
 
     return all_ok;
 }
