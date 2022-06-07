@@ -5,7 +5,7 @@ from conans import ConanFile, CMake, tools
 
 class DataflowUseCaseTest(ConanFile):
     name = "dataflow_use_case_test"
-    version = "0.0.1"    
+    version = "0.0.1"
 
     description = "Test framework for a realtime generic dataflow network"
     url = ""
@@ -29,8 +29,8 @@ class DataflowUseCaseTest(ConanFile):
 
     def requirements(self):
         self.requires("gtest/[>=1.10.0]")
-        self.requires("eigen/[>=3.3.9]@camposs/stable")
-        self.requires("spdlog/1.8.2")
+        self.requires("eigen/[>=3.4.0]")
+        self.requires("spdlog/[>=1.8.2]")
 
     def _configure_cmake(self):
         cmake = CMake(self)

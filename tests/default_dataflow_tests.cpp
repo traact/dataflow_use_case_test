@@ -9,24 +9,21 @@
 
 using TestParameter = std::tuple<int, int, bool, bool>;
 
-class DefaultDataflowTest :public ::testing::TestWithParam<TestParameter> {
-
+class DefaultDataflowTest : public ::testing::TestWithParam<TestParameter> {
 
 };
 
-
-
-TEST_P(DefaultDataflowTest, Tests){
+TEST_P(DefaultDataflowTest, Tests) {
     using namespace dataflow_use_case_test;
     int i_problem;
     int source_strategy;
     bool simulate_sensors;
     bool do_budy_work;
     std::tie(i_problem, source_strategy, simulate_sensors, do_budy_work) = GetParam();
-    UseCaseProblem problem = (UseCaseProblem)i_problem;
+    UseCaseProblem problem = (UseCaseProblem) i_problem;
 
     std::shared_ptr<UseCase> use_case;
-    if(source_strategy == 0) {
+    if (source_strategy == 0) {
         use_case = UseCaseFactory::Create(problem, std::make_unique<AllEvents_PerfectTimestamps>(), simulate_sensors,
                                           do_budy_work, 100);
     } else {
@@ -34,17 +31,14 @@ TEST_P(DefaultDataflowTest, Tests){
                                           do_budy_work, 100);
     }
 
-
     auto network = std::make_shared<TestDataflowNetwork>();
     DataflowTest test(network, use_case);
 
     EXPECT_TRUE(test.Test());
 }
 
-struct PrintToStringParamName
-{
-    std::string operator()(const ::testing::TestParamInfo<TestParameter>& info) const
-    {
+struct PrintToStringParamName {
+    std::string operator()(const ::testing::TestParamInfo<TestParameter> &info) const {
         using namespace dataflow_use_case_test;
         std::stringstream ss;
         int i_problem;
@@ -52,7 +46,7 @@ struct PrintToStringParamName
         bool simulate_sensors;
         bool do_budy_work;
         std::tie(i_problem, source_strategy, simulate_sensors, do_budy_work) = info.param;
-        UseCaseProblem problem = (UseCaseProblem)i_problem;
+        UseCaseProblem problem = (UseCaseProblem) i_problem;
 
         ss << dataflow_use_case_test::UseCaseProblemToString(problem);
         //ss << "_" << (source_strategy == 0 ? "AllEvents_PerfectTs" : "MissingEvents_NoisyTs");
@@ -64,12 +58,12 @@ struct PrintToStringParamName
 };
 
 INSTANTIATE_TEST_SUITE_P(
-        AllEvents_PerfectTimestamps,
-        DefaultDataflowTest,
-        ::testing::Combine(::testing::Range(0, 6),::testing::Values(0),::testing::Bool(),::testing::Bool()),
-        PrintToStringParamName());
+    AllEvents_PerfectTimestamps,
+    DefaultDataflowTest,
+    ::testing::Combine(::testing::Range(0, 6), ::testing::Values(0), ::testing::Bool(), ::testing::Bool()),
+    PrintToStringParamName());
 INSTANTIATE_TEST_SUITE_P(
-        MissingEvents_NoisyTimestamps,
-        DefaultDataflowTest,
-        ::testing::Combine(::testing::Range(0, 6),::testing::Values(1),::testing::Bool(),::testing::Bool()),
-        PrintToStringParamName());
+    MissingEvents_NoisyTimestamps,
+    DefaultDataflowTest,
+    ::testing::Combine(::testing::Range(0, 6), ::testing::Values(1), ::testing::Bool(), ::testing::Bool()),
+    PrintToStringParamName());

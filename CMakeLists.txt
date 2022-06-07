@@ -17,12 +17,12 @@ macro(install_with_directory)
     set(optionsArgs "")
     set(oneValueArgs "DESTINATION")
     set(multiValueArgs "FILES")
-    cmake_parse_arguments(CAS "${optionsArgs}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN} )
+    cmake_parse_arguments(CAS "${optionsArgs}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
-    foreach(FILE ${CAS_FILES})
+    foreach (FILE ${CAS_FILES})
         get_filename_component(DIR ${FILE} DIRECTORY)
         INSTALL(FILES ${FILE} DESTINATION ${CAS_DESTINATION}/${DIR})
-    endforeach()
+    endforeach ()
 endmacro(install_with_directory)
 
 project(${CONAN_PACKAGE_NAME}_PROJECT VERSION ${CONAN_PACKAGE_VERSION})
@@ -85,12 +85,11 @@ set(PUBLIC_HEADER_FILES
 #set_target_properties(${CONAN_PACKAGE_NAME}  PROPERTIES PUBLIC_HEADER "${PUBLIC_HEADER_FILES}")
 #install_with_directory(   DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${CONAN_PACKAGE_NAME}/   FILES ${PUBLIC_HEADER_FILES})
 install(DIRECTORY "./src/dataflow_use_case_test" DESTINATION "${CMAKE_INSTALL_PREFIX}/include" FILES_MATCHING
-            PATTERN "*.h"
-            PATTERN "internal" EXCLUDE
+        PATTERN "*.h"
+        PATTERN "internal" EXCLUDE
         )
 
 target_include_directories(${CONAN_PACKAGE_NAME} PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
         ${CMAKE_BINARY_DIR}
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
@@ -119,4 +118,4 @@ target_include_directories(dataflow_test_test PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/tests
         ${CMAKE_CURRENT_BINARY_DIR}
         )
-target_link_libraries(dataflow_test_test PRIVATE ${CONAN_PACKAGE_NAME} )
+target_link_libraries(dataflow_test_test PRIVATE ${CONAN_PACKAGE_NAME})

@@ -9,10 +9,11 @@
 TEST(Benchmark, In0In1_In2In3_Out0_PerfectData_NoDelay_NoWork) {
     using namespace dataflow_use_case_test;
 
-    auto use_case = UseCaseFactory::Create(UseCaseProblem::In0In1_In2In3_Out0, std::make_unique<AllEvents_PerfectTimestamps>(), false,
-                                      false, 10000);
-
-
+    auto use_case = UseCaseFactory::Create(UseCaseProblem::In0In1_In2In3_Out0,
+                                           std::make_unique<AllEvents_PerfectTimestamps>(),
+                                           false,
+                                           false,
+                                           10000);
 
     auto network = std::make_shared<TestDataflowNetwork>();
     DataflowTest test(network, use_case);
@@ -23,10 +24,11 @@ TEST(Benchmark, In0In1_In2In3_Out0_PerfectData_NoDelay_NoWork) {
 TEST(Benchmark, In0In1_In2In3_Out0_PerfectData_NoDelay_Work) {
     using namespace dataflow_use_case_test;
 
-    auto use_case = UseCaseFactory::Create(UseCaseProblem::In0In1_In2In3_Out0, std::make_unique<AllEvents_PerfectTimestamps>(), false,
-                                           true, 10000);
-
-
+    auto use_case = UseCaseFactory::Create(UseCaseProblem::In0In1_In2In3_Out0,
+                                           std::make_unique<AllEvents_PerfectTimestamps>(),
+                                           false,
+                                           true,
+                                           10000);
 
     auto network = std::make_shared<TestDataflowNetwork>();
     DataflowTest test(network, use_case);
