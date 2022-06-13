@@ -203,7 +203,7 @@ bool DataflowTest::Test() {
 
         auto send_ts = data_source.DataTsToSendTs.find(event_ts);
         if (send_ts == data_source.DataTsToSendTs.end()) {
-            SPDLOG_WARN("no sending event found for result event, test broken");
+            SPDLOG_WARN("no sending event found for result event {0}, test broken", event_ts.time_since_epoch().count());
             continue;
         }
         auto delay = receive_ts - send_ts->second;

@@ -7,7 +7,7 @@ MissingEvents_NoisyTimestamps::CreateSources(UseCaseProblem problem, bool simula
     std::vector<ExpectedSource> result;
     auto time_delta = std::chrono::milliseconds(10);
     std::vector<std::uint32_t> pass_pattern;
-    auto time_stddev = std::chrono::milliseconds(4);
+    auto time_stddev = std::chrono::milliseconds(2);
     auto sin_offset = 0;
     auto sin_per_second = 0.1;
     TimestampType start_time(std::chrono::nanoseconds(3000000000000000ll));
@@ -68,13 +68,13 @@ BaseProblemList MissingEvents_NoisyTimestamps::CreateBaseProblems(UseCaseProblem
         case UseCaseProblem::In0In1TD0_In2In3TTD1_Out0TD0_Out1TD0_Buffer:
         case UseCaseProblem::In0In1_In2In3_Out0_Out1:
         case UseCaseProblem::In0In1_In2In3_Out0:
-            work_delays = {std::chrono::milliseconds(10), std::chrono::milliseconds(4), std::chrono::milliseconds(15)};
+            work_delays = {std::chrono::milliseconds(150), std::chrono::milliseconds(4), std::chrono::milliseconds(15), std::chrono::milliseconds(20)};
             result.emplace_back(std::make_shared<BaseProblem>(do_busy_work, work_delays, expected_frequency));
         case UseCaseProblem::In0In1_In2_Out0:
-            work_delays = {std::chrono::milliseconds(8), std::chrono::milliseconds(1), std::chrono::milliseconds(12)};
+            work_delays = {std::chrono::milliseconds(8), std::chrono::milliseconds(1), std::chrono::milliseconds(100), std::chrono::milliseconds(20)};
             result.emplace_back(std::make_shared<BaseProblem>(do_busy_work, work_delays, expected_frequency));
         case UseCaseProblem::In0In1_Out0:
-            work_delays = {std::chrono::milliseconds(16), std::chrono::milliseconds(6), std::chrono::milliseconds(20)};
+            work_delays = {std::chrono::milliseconds(16), std::chrono::milliseconds(6), std::chrono::milliseconds(20), std::chrono::milliseconds(120)};
             result.emplace_back(std::make_shared<BaseProblem>(do_busy_work, work_delays, expected_frequency));
         case UseCaseProblem::In0_Out0:break;
     }

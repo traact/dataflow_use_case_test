@@ -52,7 +52,7 @@ buffer it;when the inputs 0 and 1 have synchronous data then r0 = solve1(0,1) an
 r1 is available then final = solve2(r0,r1) and pass to output 1
 
 To “solve” a problem the init call passes a list of “BaseProblem”. The index of “solveX” corresponds to the index in the
-list. Call the “Execute” function with the timestamp of the dataset and its values.
+list. Call the “Execute” function with the event_timestamp of the dataset and its values.
 
  ```
 struct BaseProblem {
@@ -62,10 +62,10 @@ struct BaseProblem {
 
 To pass the result back to the test framework use the “ResultCallback”.
 First parameter is the result time domain, currently all use cases use 0.
-“PortTsData” is a tuple<int,Timestamp,TestDatatype>  representing the port, timestamp and result.
+“PortTsData” is a tuple<int,Timestamp,TestDatatype>  representing the port, event_timestamp and result.
 
 In case your dataflow network can notice when a time step has passed and no valid result can be computed (e.g. missing
-input data) then you can report it using the “InvalidCallback” with the parameters timedomain, port and timestamp
+input data) then you can report it using the “InvalidCallback” with the parameters timedomain, port and event_timestamp
 
  ```
 using InvalidCallback = std::function<void(int, int, Timestamp)>;
