@@ -6,7 +6,7 @@ namespace dataflow_use_case_test {
 ExpectedSource::ExpectedSource(SourceConfiguration config) : configuration(std::move(config)) {
 
     std::default_random_engine generator;
-    std::uniform_real_distribution<double> distribution(-1.0, 1.0);
+    std::uniform_real_distribution<float> distribution(-1.0, 1.0);
     auto offset_factor = std::bind(distribution, generator);
 
     max_offset_for_valid = configuration.time_delta / 2;
@@ -51,7 +51,7 @@ bool ExpectedSource::ValidTimestamp(TimestampType clean_ts) const {
     return result.has_value();
 }
 
-Eigen::Affine3d ExpectedSource::GetPose(TimestampType clean_ts) const {
+TestDataType ExpectedSource::GetPose(TimestampType clean_ts) const {
     if (!ValidTimestamp(clean_ts))
         throw std::runtime_error(
             "ExpectedSource::getPose was called with ts that corresponded to no valid timestamp in its data");
@@ -60,10 +60,12 @@ Eigen::Affine3d ExpectedSource::GetPose(TimestampType clean_ts) const {
     double seconds = nanoMilliseconds(clean_ts.time_since_epoch()).count();
 
     double p = seconds * configuration.sin_per_second;
-    double pos = std::sin(configuration.sin_offset + p);
+    float pos = std::sin(configuration.sin_offset + p);
 
-    Eigen::Affine3d pose = Eigen::Affine3d::Identity();
-    pose.translation() = Eigen::Vector3d(0, 0, pos);
+    TestDataType pose = TestDataType::Identity();
+    pose.translation().x() = 0;
+    pose.translation().y() = 0;
+    pose.translation().z() = pos;
 
     return pose;
 

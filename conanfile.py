@@ -22,7 +22,7 @@ class TraactPackage(ConanFile):
         self.traact_requires("traact_run_env", "latest")
         self.requires("gtest/[>=1.11.0]")
         self.requires("eigen/[>=3.4.0]")
-        self.requires("spdlog/[>=1.8.2]")
+        self.requires("spdlog/[>=1.9.1]")
 
     def configure(self):
         self.options['gtest'].shared = self.options.shared

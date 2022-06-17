@@ -14,7 +14,7 @@ namespace dataflow_use_case_test {
 using TimeDurationType = std::chrono::duration<int64_t, std::nano>;
 using SCTimestampType = std::chrono::time_point<std::chrono::steady_clock, TimeDurationType>;
 using TimestampType = std::chrono::time_point<std::chrono::system_clock, TimeDurationType>;
-using TestDataType = Eigen::Affine3d;
+using TestDataType = Eigen::Affine3f;
 using PortTsData = std::tuple<int, TimestampType, TestDataType>;
 using PortTsDataList = std::vector<PortTsData>;
 
@@ -98,8 +98,8 @@ struct DATAFLOW_USE_CASE_TEST_EXPORT SourceConfiguration {
 
     SourceConfiguration(bool simulateSensors, TimestampType startTime, TimeDurationType timeDelta,
                         TimeDurationType timeStdDev,
-                        std::vector<std::uint32_t> passPattern, size_t numEvents, double sin_offset,
-                        double sin_per_second);
+                        std::vector<std::uint32_t> passPattern, size_t numEvents, float sin_offset,
+                        float sin_per_second);
 
     bool simulate_sensors;
     TimestampType start_time;
@@ -107,8 +107,8 @@ struct DATAFLOW_USE_CASE_TEST_EXPORT SourceConfiguration {
     TimeDurationType time_stddev;
     std::vector<std::uint32_t> pass_pattern;
     size_t num_events;
-    double sin_offset;
-    double sin_per_second;
+    float sin_offset;
+    float sin_per_second;
 
 };
 

@@ -11,7 +11,7 @@ struct DATAFLOW_USE_CASE_TEST_EXPORT ExpectedSource {
     explicit ExpectedSource(SourceConfiguration config);
 
     bool ValidTimestamp(TimestampType clean_ts) const;
-    Eigen::Affine3d GetPose(TimestampType clean_ts) const;
+    TestDataType GetPose(TimestampType clean_ts) const;
     std::optional<TimestampType> GetTimestamp(TimestampType clean_ts) const;
 
     SourceConfiguration configuration;

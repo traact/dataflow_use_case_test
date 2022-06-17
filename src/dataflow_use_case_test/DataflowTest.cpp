@@ -175,7 +175,7 @@ bool DataflowTest::Test() {
     using nanoToMicro = std::chrono::duration<float, std::micro>;
     using nanoToMilli = std::chrono::duration<float, std::milli>;
     using nanoToSeconds = std::chrono::duration<float, std::ratio<1, 1> >;
-    double events_per_second = total_events / (nanoToMilli(total_time).count() / 1000.0);
+    float events_per_second = total_events / (nanoToMilli(total_time).count() / 1000.0);
 
     std::stringstream ss;
     ss << "Dataflow Statistic\n";
@@ -218,14 +218,14 @@ bool DataflowTest::Test() {
         auto total_delay = std::accumulate(delay_data.cbegin(), delay_data.cend(), TimeDurationType(0));
         auto mean_delay = nanoToMicro(total_delay) / delay_data.size();
 
-        std::vector<double> diff_delay(delay_data.size());
+        std::vector<float> diff_delay(delay_data.size());
         std::transform(delay_data.begin(),
                        delay_data.end(),
                        diff_delay.begin(),
                        [mean_delay](TimeDurationType x) { return nanoToMicro(x).count() - mean_delay.count(); });
 
         auto sq_sum_delay = std::inner_product(diff_delay.begin(), diff_delay.end(), diff_delay.begin(), 0.0f);
-        double stddev_delay = std::sqrt(sq_sum_delay / delay_data.size());
+        float stddev_delay = std::sqrt(sq_sum_delay / delay_data.size());
 
         ss << fmt::format("TD: {0} Port: {1} Mean: {2:4f}us StdDev {3:4f}us Events: {4}\n",
                           td,
