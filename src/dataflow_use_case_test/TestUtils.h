@@ -6,6 +6,7 @@
 #include <memory>
 #include <utility>
 #include <vector>
+#include <optional>
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 #include "dataflow_use_case_test/dataflow_use_case_test_export.h"
