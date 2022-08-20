@@ -9,7 +9,9 @@
 #include <optional>
 #include <Eigen/Core>
 #include <Eigen/Geometry>
-#include "dataflow_use_case_test/dataflow_use_case_test_export.h"
+//#include "dataflow_use_case_test/dataflow_use_case_test_export.h"
+
+#define DATAFLOW_USE_CASE_TEST_EXPORT
 
 namespace dataflow_use_case_test {
 using TimeDurationType = std::chrono::duration<int64_t, std::nano>;
